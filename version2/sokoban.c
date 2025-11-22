@@ -218,7 +218,7 @@ int main(){
     // Définition des coordonnées où se trouve Sokoban
     for (int i=0 ; i<NB_LIGNES ; i++) {
         for(int j=0;j<NB_COLONNES;j++) {
-            if(plateauDeJeu[i][j]==SOKOBAN) {
+            if((plateauDeJeu[i][j]==SOKOBAN) || (plateauDeJeu[i][j]==SOKOBAN_CIBLE)) {
                 ligneSokoban=i;
                 colonneSokoban=j;
             }
