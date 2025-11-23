@@ -1,5 +1,3 @@
-// Test de la branche
-
 /**
 * @file sokoban.c
 * @brief Jeu du Sokoban
