@@ -25,6 +25,7 @@
 #define NB_LIGNES 12
 #define NB_DEPLACEMENTS_MAX 1000
 const int ZERO=0;
+const int MILLE=1000;
 const int TAILLE=12;
 const int TAILLE_FICHIER=20;
 const int ENLEVER=-1;
@@ -56,6 +57,7 @@ const char SOKOBAN_CAISSE_GAUCHE='G';
 const char SOKOBAN_CAISSE_DROITE='D';
 const char SOKOBAN_CAISSE_HAUT='H';
 const char SOKOBAN_CAISSE_BAS='B';
+const char AUCUN_DEPLACEMENT=' ';
 const char SOKOBAN_CIBLE='+';
 const char CAISSE_CIBLE='*';
 const char ATTENTE='\0';
@@ -211,6 +213,8 @@ void plateaux1(t_Plateau plateau, int zoom, int ligne);
 
 void plateaux2_3(t_Plateau plateau, int zoom, int ligne);
 
+void initialiser_historique_deplacement(t_tabDeplacement histoDepla);
+
 void ajout_deplacement(t_tabDeplacement histoDepla, char dernierDepla,
     int nbDepla);
 
@@ -250,6 +254,7 @@ int main(){
             }
         }
     }
+    initialiser_historique_deplacement(historiqueDeplacement);
     jeu(&touche, plateauDeJeu, nomFichier, ligneSokoban,
         colonneSokoban, nbDeplacements, nvZoom, historiqueDeplacement);
     // Dit si le joueur a gagné ou abandonné en fonction de la dernirèe touche
@@ -289,7 +294,7 @@ void jeu(char *toucheAppuyee, t_Plateau plateau, char fichier[],
         system("clear");
         affichier_entete(nbDepla, fichier);
         afficher_plateau(plateau, zoom);
-        for(int k=0; k<nbDepla; k++){
+        for(int k=0; k<70 ; k++){
             printf("%c", histoDepla[k]);
         }
     }
@@ -591,6 +596,12 @@ void deplacement_sokoban(int nvLig, int nvCol, int *ligSok,
     *nbDepla= *nbDepla + 1;
 }
 
+void initialiser_historique_deplacement(t_tabDeplacement histoDepla){
+    for (int i = ZERO ; i < MILLE ; i++){
+        histoDepla[i]=AUCUN_DEPLACEMENT;
+    }
+}
+
 void ajout_deplacement(t_tabDeplacement histoDepla, char dernierDepla,
     int nbDepla){
     
@@ -600,10 +611,13 @@ void ajout_deplacement(t_tabDeplacement histoDepla, char dernierDepla,
 void ajout_deplacement_caisse(char *dernierDepla){
     if (*dernierDepla == SOKOBAN_GAUCHE) {
         *dernierDepla = SOKOBAN_CAISSE_GAUCHE;
+
     } else if (*dernierDepla == SOKOBAN_DROITE) {
         *dernierDepla = SOKOBAN_CAISSE_DROITE;
+
     } else if (*dernierDepla == SOKOBAN_HAUT) {
         *dernierDepla = SOKOBAN_CAISSE_HAUT;
+
     } else {
         *dernierDepla = SOKOBAN_CAISSE_BAS;
     }
@@ -635,6 +649,7 @@ void recommencer(int *nbDepla, t_Plateau plateauDeJeu, char nomFichier[],
                 }
             }
         }
+        initialiser_historique_deplacement(histoDepla);
     }
 }
 
