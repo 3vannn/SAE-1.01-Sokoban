@@ -348,7 +348,7 @@ bool gagne(t_Plateau plateauDeJeu);
 
 int kbhit();
 
-int main(){
+int main(){ 
     t_Plateau plateauDeJeu; // Plateau du jeu
     t_tabDeplacement historiqueDeplacement;
     char nomFichier[TAILLE_FICHIER], touche=ATTENTE; // Nom du fichier + touche
