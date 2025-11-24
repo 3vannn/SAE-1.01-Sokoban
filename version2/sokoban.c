@@ -373,7 +373,7 @@ int main(){
     // Dit si le joueur a gagné ou abandonné en fonction de la dernière touche
     if(touche == ARRETER) {
         abandon(plateauDeJeu);
-        printf("\nLa partie a été abandonnée\n");
+        printf("\nLa partie a été abandonnée\n"); 
     } else {
         printf("\nVous avez gagné !\n");
     }
@@ -560,14 +560,14 @@ void deplacement_rien(t_Plateau plateau, int *ligSok, int *colSok,
         deplacement_sokoban(incrLigSok, incrColSok, &*ligSok,
             &*colSok, &*nbDepla);
         
-        ajout_deplacement(histoDepla, deplacement, *nbDepla);
+        ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
     } else {
         plateau[*ligSok][*colSok] = RIEN;
         plateau[*ligSok+incrLigSok][*colSok+incrColSok] = SOKOBAN;
         deplacement_sokoban(incrLigSok, incrColSok, &*ligSok,
             &*colSok, &*nbDepla);
         
-        ajout_deplacement(histoDepla, deplacement, *nbDepla);
+        ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
     }
 }
 
@@ -589,7 +589,7 @@ void deplacement_caisse(t_Plateau plateau, int *ligSok, int *colSok,
                 &*colSok, &*nbDepla);
                 
             ajout_deplacement_caisse(&deplacement);
-            ajout_deplacement(histoDepla, deplacement, *nbDepla);
+            ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
         } else {
             plateau[*ligSok+doubleIncrLigSok]
             [*colSok+doubleIncrColSok] = CAISSE;
@@ -600,7 +600,7 @@ void deplacement_caisse(t_Plateau plateau, int *ligSok, int *colSok,
                 &*colSok, &*nbDepla);
                 
             ajout_deplacement_caisse(&deplacement);
-            ajout_deplacement(histoDepla, deplacement, *nbDepla);
+            ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
         }
     // Sinon si 2 cases plus loin il se trouve une cible
     } else if (plateau[*ligSok+doubleIncrLigSok]
@@ -617,7 +617,7 @@ void deplacement_caisse(t_Plateau plateau, int *ligSok, int *colSok,
                 &*colSok, &*nbDepla);
                 
             ajout_deplacement_caisse(&deplacement);
-            ajout_deplacement(histoDepla, deplacement, *nbDepla);
+            ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
         } else {
             plateau[*ligSok+doubleIncrLigSok]
             [*colSok+doubleIncrColSok] = CAISSE_CIBLE;
@@ -628,7 +628,7 @@ void deplacement_caisse(t_Plateau plateau, int *ligSok, int *colSok,
                 &*colSok, &*nbDepla);
                 
             ajout_deplacement_caisse(&deplacement);
-            ajout_deplacement(histoDepla, deplacement, *nbDepla);
+            ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
         }
     }
 }
@@ -651,7 +651,7 @@ void deplacement_caisse_cible(t_Plateau plateau, int *ligSok, int *colSok,
                 &*colSok, &*nbDepla);
                 
             ajout_deplacement_caisse(&deplacement);
-            ajout_deplacement(histoDepla, deplacement, *nbDepla);
+            ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
         } else {
             plateau[*ligSok+doubleIncrLigSok]
             [*colSok+doubleIncrColSok] = CAISSE;
@@ -661,7 +661,7 @@ void deplacement_caisse_cible(t_Plateau plateau, int *ligSok, int *colSok,
                 &*colSok, &*nbDepla);
                 
             ajout_deplacement_caisse(&deplacement);
-            ajout_deplacement(histoDepla, deplacement, *nbDepla);
+            ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
         }
     // Sinon si 2 cases plus loin il se trouve une cible
     } else if (plateau[*ligSok+doubleIncrLigSok]
@@ -677,7 +677,7 @@ void deplacement_caisse_cible(t_Plateau plateau, int *ligSok, int *colSok,
                 &*colSok, &*nbDepla);
                 
             ajout_deplacement_caisse(&deplacement);
-            ajout_deplacement(histoDepla, deplacement, *nbDepla);
+            ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
         } else {
             plateau[*ligSok+doubleIncrLigSok]
             [*colSok+doubleIncrColSok] = CAISSE_CIBLE;
@@ -688,7 +688,7 @@ void deplacement_caisse_cible(t_Plateau plateau, int *ligSok, int *colSok,
                 &*colSok, &*nbDepla);
 
             ajout_deplacement_caisse(&deplacement);
-            ajout_deplacement(histoDepla, deplacement, *nbDepla);
+            ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
         }
     }
 }
@@ -704,14 +704,14 @@ void deplacement_cible(t_Plateau plateau, int *ligSok, int *colSok,
         deplacement_sokoban(incrLigSok, incrColSok, &*ligSok,
             &*colSok, &*nbDepla);
 
-        ajout_deplacement(histoDepla, deplacement, *nbDepla);
+        ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
     } else {
         plateau[*ligSok][*colSok] = RIEN;
         plateau[*ligSok+incrLigSok][*colSok+incrColSok] = SOKOBAN_CIBLE;
         deplacement_sokoban(incrLigSok, incrColSok, &*ligSok,
             &*colSok, &*nbDepla);
         
-        ajout_deplacement(histoDepla, deplacement, *nbDepla);
+        ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
     }
 }
 
@@ -750,21 +750,21 @@ void annulation_deplacer(t_Plateau plateau, int *ligSok, int *colSok,
 
     int incrLigSok=ZERO, incrColSok=ZERO;
     // incrLigSok et incrColSok changent en fonction de la direction choisie
-    if(histoDepla[*nbDepla] == SOKOBAN_HAUT) {
+    if(histoDepla[*nbDepla + ENLEVER] == SOKOBAN_HAUT) {
         incrLigSok = AJOUTER;
-    } else if (histoDepla[*nbDepla] == SOKOBAN_BAS) {
+    } else if (histoDepla[*nbDepla + ENLEVER] == SOKOBAN_BAS) {
         incrLigSok = ENLEVER;
-    } else if (histoDepla[*nbDepla] == SOKOBAN_GAUCHE) {
+    } else if (histoDepla[*nbDepla + ENLEVER] == SOKOBAN_GAUCHE) {
         incrColSok = AJOUTER;
-    } else if (histoDepla[*nbDepla] == SOKOBAN_DROITE) {
+    } else if (histoDepla[*nbDepla + ENLEVER] == SOKOBAN_DROITE) {
         incrColSok = ENLEVER;
-    } else if (histoDepla[*nbDepla] == SOKOBAN_CAISSE_HAUT) {
+    } else if (histoDepla[*nbDepla + ENLEVER] == SOKOBAN_CAISSE_HAUT) {
         incrLigSok = ENLEVER;
-    } else if (histoDepla[*nbDepla] == SOKOBAN_CAISSE_BAS) {
+    } else if (histoDepla[*nbDepla + ENLEVER] == SOKOBAN_CAISSE_BAS) {
         incrLigSok = AJOUTER;
-    } else if (histoDepla[*nbDepla] == SOKOBAN_CAISSE_GAUCHE) {
+    } else if (histoDepla[*nbDepla + ENLEVER] == SOKOBAN_CAISSE_GAUCHE) {
         incrColSok = ENLEVER;
-    } else if (histoDepla[*nbDepla] == SOKOBAN_CAISSE_DROITE){
+    } else if (histoDepla[*nbDepla + ENLEVER] == SOKOBAN_CAISSE_DROITE){
         incrColSok = AJOUTER;
     }
 
@@ -792,14 +792,14 @@ void annule_deplacement_rien(t_Plateau plateau, int *ligSok, int *colSok,
     if (plateau[*ligSok][*colSok] == SOKOBAN_CIBLE){
         plateau[*ligSok][*colSok] = CIBLE;
         plateau[*ligSok+incrLigSok][*colSok+incrColSok] = SOKOBAN;
-        annulation_deplacement(histoDepla, *nbDepla);
+        annulation_deplacement(histoDepla, *nbDepla + ENLEVER);
         
         annulation_deplacement_sokoban(incrLigSok, incrColSok, &*ligSok,
             &*colSok, &*nbDepla);
     } else {
         plateau[*ligSok][*colSok] = RIEN;
         plateau[*ligSok+incrLigSok][*colSok+incrColSok] = SOKOBAN;
-        annulation_deplacement(histoDepla, *nbDepla);
+        annulation_deplacement(histoDepla, *nbDepla + ENLEVER);
         
         annulation_deplacement_sokoban(incrLigSok, incrColSok, &*ligSok,
             &*colSok, &*nbDepla);
@@ -818,14 +818,14 @@ void annule_deplacement_caisse(t_Plateau plateau, int *ligSok, int *colSok,
             plateau[*ligSok+invIncrLigSok][*colSok+invIncrColSok] = SOKOBAN;
             plateau[*ligSok+incrLigSok][*colSok+incrColSok] = RIEN;
             plateau[*ligSok][*colSok] = CAISSE_CIBLE;
-            annulation_deplacement(histoDepla, *nbDepla);
+            annulation_deplacement(histoDepla, *nbDepla + ENLEVER);
             annulation_deplacement_sokoban(invIncrLigSok, invIncrColSok,
                 &*ligSok, &*colSok, &*nbDepla);
         } else {
             plateau[*ligSok+invIncrLigSok][*colSok+invIncrColSok] = SOKOBAN;
             plateau[*ligSok+incrLigSok][*colSok+incrColSok] = RIEN;
             plateau[*ligSok][*colSok] = CAISSE;
-            annulation_deplacement(histoDepla, *nbDepla);
+            annulation_deplacement(histoDepla, *nbDepla + ENLEVER);
             annulation_deplacement_sokoban(invIncrLigSok, invIncrColSok,
                 &*ligSok, &*colSok, &*nbDepla);
         }
@@ -839,7 +839,7 @@ void annule_deplacement_caisse(t_Plateau plateau, int *ligSok, int *colSok,
 
             plateau[*ligSok+incrLigSok][*colSok+incrColSok] = RIEN;
             plateau[*ligSok][*colSok] = CAISSE_CIBLE;
-            annulation_deplacement(histoDepla, *nbDepla);
+            annulation_deplacement(histoDepla, *nbDepla + ENLEVER);
             annulation_deplacement_sokoban(invIncrLigSok, invIncrColSok,
                 &*ligSok, &*colSok, &*nbDepla);
         } else {
@@ -848,7 +848,7 @@ void annule_deplacement_caisse(t_Plateau plateau, int *ligSok, int *colSok,
 
             plateau[*ligSok+incrLigSok][*colSok+incrColSok] = RIEN;
             plateau[*ligSok][*colSok] = CAISSE;
-            annulation_deplacement(histoDepla, *nbDepla);
+            annulation_deplacement(histoDepla, *nbDepla + ENLEVER);
             annulation_deplacement_sokoban(invIncrLigSok, invIncrColSok,
                 &*ligSok, &*colSok, &*nbDepla);
         }
@@ -867,14 +867,14 @@ void annule_deplacement_caisse_cible(t_Plateau plateau, int *ligSok, int *colSok
             plateau[*ligSok+invIncrLigSok][*colSok+invIncrColSok] = SOKOBAN;
             plateau[*ligSok+incrLigSok][*colSok+incrColSok] = CIBLE;
             plateau[*ligSok][*colSok] = CAISSE_CIBLE;
-            annulation_deplacement(histoDepla, *nbDepla);
+            annulation_deplacement(histoDepla, *nbDepla + ENLEVER);
             annulation_deplacement_sokoban(invIncrLigSok, invIncrColSok,
                 &*ligSok, &*colSok, &*nbDepla);
         } else {
             plateau[*ligSok+invIncrLigSok][*colSok+invIncrColSok] = SOKOBAN;
             plateau[*ligSok+incrLigSok][*colSok+incrColSok] = CIBLE;
             plateau[*ligSok][*colSok] = CAISSE;
-            annulation_deplacement(histoDepla, *nbDepla);
+            annulation_deplacement(histoDepla, *nbDepla + ENLEVER);
             annulation_deplacement_sokoban(invIncrLigSok, invIncrColSok,
                 &*ligSok, &*colSok, &*nbDepla);
         }
@@ -888,7 +888,7 @@ void annule_deplacement_caisse_cible(t_Plateau plateau, int *ligSok, int *colSok
 
             plateau[*ligSok+incrLigSok][*colSok+incrColSok] = CIBLE;
             plateau[*ligSok][*colSok] = CAISSE_CIBLE;
-            annulation_deplacement(histoDepla, *nbDepla);
+            annulation_deplacement(histoDepla, *nbDepla + ENLEVER);
             annulation_deplacement_sokoban(invIncrLigSok, invIncrColSok,
                 &*ligSok, &*colSok, &*nbDepla);
         } else {
@@ -897,7 +897,7 @@ void annule_deplacement_caisse_cible(t_Plateau plateau, int *ligSok, int *colSok
 
             plateau[*ligSok+incrLigSok][*colSok+incrColSok] = CIBLE;
             plateau[*ligSok][*colSok] = CAISSE;
-            annulation_deplacement(histoDepla, *nbDepla);
+            annulation_deplacement(histoDepla, *nbDepla + ENLEVER);
             annulation_deplacement_sokoban(invIncrLigSok, invIncrColSok,
                 &*ligSok, &*colSok, &*nbDepla);
         }
@@ -911,14 +911,14 @@ void annule_deplacement_cible(t_Plateau plateau, int *ligSok, int *colSok,
     if (plateau[*ligSok][*colSok] == SOKOBAN_CIBLE){
         plateau[*ligSok][*colSok] = CIBLE;
         plateau[*ligSok+incrLigSok][*colSok+incrColSok] = SOKOBAN_CIBLE;
-        annulation_deplacement(histoDepla, *nbDepla);
+        annulation_deplacement(histoDepla, *nbDepla + ENLEVER);
         
         annulation_deplacement_sokoban(incrLigSok, incrColSok, &*ligSok,
             &*colSok, &*nbDepla);
     } else {
         plateau[*ligSok][*colSok] = RIEN;
         plateau[*ligSok+incrLigSok][*colSok+incrColSok] = SOKOBAN_CIBLE;
-        annulation_deplacement(histoDepla, *nbDepla);
+        annulation_deplacement(histoDepla, *nbDepla + ENLEVER);
         
         annulation_deplacement_sokoban(incrLigSok, incrColSok, &*ligSok,
             &*colSok, &*nbDepla);
