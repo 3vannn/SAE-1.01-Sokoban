@@ -337,7 +337,14 @@ void annulation_deplacement(t_tabDeplacement histoDepla, int nbDepla);
  */
 void enregistrer_deplacements(t_tabDeplacement t, int nb, char fic[]);
 
-void enregistrementDeplacements(t_tabDeplacement t, int nb);
+
+/**
+ * @brief Demande si l'utilisateur veut enregistrer la partie puis l'enregistre
+ * @param t Tableau contenant les déplacements
+ * @param nb Nombre de déplacements à enregistrer
+ * @param fic Nom du fichier où sauvegarder
+*/
+void enregistrement_deplacements(t_tabDeplacement t, int nb);
 
 /**
  * @brief Fonction qui renvoie si le joueur a gagné
@@ -351,19 +358,19 @@ int kbhit();
 int main(){ 
     t_Plateau plateauDeJeu; // Plateau du jeu
     t_tabDeplacement historiqueDeplacement;
-    char nomFichier[TAILLE_FICHIER], touche=ATTENTE; // Nom du fichier + touche
-    int nbDeplacements=ZERO, ligneSokoban, colonneSokoban, nvZoom=1; 
+    char nomFichier[TAILLE_FICHIER], touche = ATTENTE; // Nom du fichier + touche
+    int nbDeplacements = ZERO, ligneSokoban, colonneSokoban, nvZoom = 1; 
     printf("Entrez le nom du fichier : ");
     scanf("%s", nomFichier);
     charger_partie(plateauDeJeu, nomFichier);
     affichier_entete(nbDeplacements,nomFichier);
     afficher_plateau(plateauDeJeu, nvZoom);
     // Définition des coordonnées où se trouve Sokoban
-    for (int i=0 ; i<NB_LIGNES ; i++) {
-        for(int j=0;j<NB_COLONNES;j++) {
-            if((plateauDeJeu[i][j]==SOKOBAN) || (plateauDeJeu[i][j]==SOKOBAN_CIBLE)) {
-                ligneSokoban=i;
-                colonneSokoban=j;
+    for (int i = 0 ; i < NB_LIGNES ; i++) {
+        for(int j = 0;j < NB_COLONNES;j++) {
+            if((plateauDeJeu[i][j] == SOKOBAN) || (plateauDeJeu[i][j] == SOKOBAN_CIBLE)) {
+                ligneSokoban = i;
+                colonneSokoban = j;
             }
         }
     }
@@ -377,14 +384,14 @@ int main(){
     } else {
         printf("\nVous avez gagné !\n");
     }
-    enregistrementDeplacements(historiqueDeplacement, nbDeplacements);
+    enregistrement_deplacements(historiqueDeplacement, nbDeplacements);
     return EXIT_SUCCESS;
 }
 
-void enregistrementDeplacements(t_tabDeplacement t, int nb){
+void enregistrement_deplacements(t_tabDeplacement t, int nb){
     char choix, nomFichierDeplacements[TAILLE_FICHIER];
     printf("Souhaitez-vous enregistrer les déplacements dans un fichier ? (O/N) ");
-    scanf("%c", &choix);
+    scanf(" %c", &choix);
     if (choix == VALIDATION) {
         printf("Quel nom souhaitez-vous donner au fichier ? (19 caractères) ");
         scanf("%s", nomFichierDeplacements);
@@ -422,7 +429,7 @@ void jeu(char *toucheAppuyee, t_Plateau plateau, char fichier[],
         system("clear");
         affichier_entete(*nbDepla, fichier);
         afficher_plateau(plateau, zoom);
-        for(int k=0; k<70 ; k++){
+        for(int k = 0; k < 70 ; k++){
             printf("%c", histoDepla[k]);
         }
     }
@@ -510,8 +517,8 @@ void affichier_entete(int nbDepla, char nomFich[]){
 void deplacer(t_Plateau plateau, int *ligSok, int *colSok,
     char deplacement, int *nbDepla, t_tabDeplacement histoDepla){
 
-    int incrLigSok=ZERO, incrColSok=ZERO, doubleIncrLigSok=ZERO,
-    doubleIncrColSok=ZERO;
+    int incrLigSok = ZERO, incrColSok = ZERO, doubleIncrLigSok = ZERO,
+    doubleIncrColSok = ZERO;
     char deplacementHistorique;
     // incrLigSok et incrColSok changent en fonction de la direction choisie
     if(deplacement == HAUT) {
@@ -538,8 +545,8 @@ void deplacer(t_Plateau plateau, int *ligSok, int *colSok,
         deplacement_caisse(plateau, &*ligSok, &*colSok, incrLigSok,
             incrColSok, doubleIncrLigSok, doubleIncrColSok, &*nbDepla,
             histoDepla, deplacementHistorique);
-    } else if (plateau[*ligSok+incrLigSok][*colSok+incrColSok]
-        == CAISSE_CIBLE) {
+    } else if (plateau[*ligSok+incrLigSok][*colSok+incrColSok] == 
+        CAISSE_CIBLE) {
         deplacement_caisse_cible(plateau, &*ligSok, &*colSok, incrLigSok,
             incrColSok, doubleIncrLigSok, doubleIncrColSok, &*nbDepla,
             histoDepla, deplacementHistorique);
@@ -560,14 +567,14 @@ void deplacement_rien(t_Plateau plateau, int *ligSok, int *colSok,
         deplacement_sokoban(incrLigSok, incrColSok, &*ligSok,
             &*colSok, &*nbDepla);
         
-        ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
+        ajout_deplacement(histoDepla, deplacement, *nbDepla + ENLEVER);
     } else {
         plateau[*ligSok][*colSok] = RIEN;
         plateau[*ligSok+incrLigSok][*colSok+incrColSok] = SOKOBAN;
         deplacement_sokoban(incrLigSok, incrColSok, &*ligSok,
             &*colSok, &*nbDepla);
         
-        ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
+        ajout_deplacement(histoDepla, deplacement, *nbDepla + ENLEVER);
     }
 }
 
@@ -589,7 +596,7 @@ void deplacement_caisse(t_Plateau plateau, int *ligSok, int *colSok,
                 &*colSok, &*nbDepla);
                 
             ajout_deplacement_caisse(&deplacement);
-            ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
+            ajout_deplacement(histoDepla, deplacement, *nbDepla + ENLEVER);
         } else {
             plateau[*ligSok+doubleIncrLigSok]
             [*colSok+doubleIncrColSok] = CAISSE;
@@ -600,7 +607,7 @@ void deplacement_caisse(t_Plateau plateau, int *ligSok, int *colSok,
                 &*colSok, &*nbDepla);
                 
             ajout_deplacement_caisse(&deplacement);
-            ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
+            ajout_deplacement(histoDepla, deplacement, *nbDepla + ENLEVER);
         }
     // Sinon si 2 cases plus loin il se trouve une cible
     } else if (plateau[*ligSok+doubleIncrLigSok]
@@ -617,7 +624,7 @@ void deplacement_caisse(t_Plateau plateau, int *ligSok, int *colSok,
                 &*colSok, &*nbDepla);
                 
             ajout_deplacement_caisse(&deplacement);
-            ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
+            ajout_deplacement(histoDepla, deplacement, *nbDepla + ENLEVER);
         } else {
             plateau[*ligSok+doubleIncrLigSok]
             [*colSok+doubleIncrColSok] = CAISSE_CIBLE;
@@ -628,7 +635,7 @@ void deplacement_caisse(t_Plateau plateau, int *ligSok, int *colSok,
                 &*colSok, &*nbDepla);
                 
             ajout_deplacement_caisse(&deplacement);
-            ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
+            ajout_deplacement(histoDepla, deplacement, *nbDepla + ENLEVER);
         }
     }
 }
@@ -641,7 +648,7 @@ void deplacement_caisse_cible(t_Plateau plateau, int *ligSok, int *colSok,
     // Si 2 cases plus loin il ne se trouve rien
     if (plateau[*ligSok+doubleIncrLigSok][*colSok+doubleIncrColSok] == RIEN){
         // Si Sokoban se trouve sur une cible
-        if (plateau[*ligSok][*colSok]==SOKOBAN_CIBLE){
+        if (plateau[*ligSok][*colSok] == SOKOBAN_CIBLE){
             plateau[*ligSok+doubleIncrLigSok]
             [*colSok+doubleIncrColSok] = CAISSE;
 
@@ -651,7 +658,7 @@ void deplacement_caisse_cible(t_Plateau plateau, int *ligSok, int *colSok,
                 &*colSok, &*nbDepla);
                 
             ajout_deplacement_caisse(&deplacement);
-            ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
+            ajout_deplacement(histoDepla, deplacement, *nbDepla + ENLEVER);
         } else {
             plateau[*ligSok+doubleIncrLigSok]
             [*colSok+doubleIncrColSok] = CAISSE;
@@ -661,7 +668,7 @@ void deplacement_caisse_cible(t_Plateau plateau, int *ligSok, int *colSok,
                 &*colSok, &*nbDepla);
                 
             ajout_deplacement_caisse(&deplacement);
-            ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
+            ajout_deplacement(histoDepla, deplacement, *nbDepla + ENLEVER);
         }
     // Sinon si 2 cases plus loin il se trouve une cible
     } else if (plateau[*ligSok+doubleIncrLigSok]
@@ -677,7 +684,7 @@ void deplacement_caisse_cible(t_Plateau plateau, int *ligSok, int *colSok,
                 &*colSok, &*nbDepla);
                 
             ajout_deplacement_caisse(&deplacement);
-            ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
+            ajout_deplacement(histoDepla, deplacement, *nbDepla + ENLEVER);
         } else {
             plateau[*ligSok+doubleIncrLigSok]
             [*colSok+doubleIncrColSok] = CAISSE_CIBLE;
@@ -688,7 +695,7 @@ void deplacement_caisse_cible(t_Plateau plateau, int *ligSok, int *colSok,
                 &*colSok, &*nbDepla);
 
             ajout_deplacement_caisse(&deplacement);
-            ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
+            ajout_deplacement(histoDepla, deplacement, *nbDepla + ENLEVER);
         }
     }
 }
@@ -704,14 +711,14 @@ void deplacement_cible(t_Plateau plateau, int *ligSok, int *colSok,
         deplacement_sokoban(incrLigSok, incrColSok, &*ligSok,
             &*colSok, &*nbDepla);
 
-        ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
+        ajout_deplacement(histoDepla, deplacement, *nbDepla + ENLEVER);
     } else {
         plateau[*ligSok][*colSok] = RIEN;
         plateau[*ligSok+incrLigSok][*colSok+incrColSok] = SOKOBAN_CIBLE;
         deplacement_sokoban(incrLigSok, incrColSok, &*ligSok,
             &*colSok, &*nbDepla);
         
-        ajout_deplacement(histoDepla, deplacement, *nbDepla+ENLEVER);
+        ajout_deplacement(histoDepla, deplacement, *nbDepla + ENLEVER);
     }
 }
 
@@ -720,8 +727,8 @@ void deplacement_sokoban(int nvLig, int nvCol, int *ligSok,
     
     // Effectue les changements dans les coordonnées de Sokoban
     *ligSok = *ligSok + nvLig;
-    *colSok= *colSok + nvCol;
-    *nbDepla= *nbDepla + 1;
+    *colSok = *colSok + nvCol;
+    *nbDepla = *nbDepla + 1;
 }
 
 void ajout_deplacement(t_tabDeplacement histoDepla, char dernierDepla,
@@ -748,7 +755,7 @@ void ajout_deplacement_caisse(char *dernierDepla){
 void annulation_deplacer(t_Plateau plateau, int *ligSok, int *colSok,
     int *nbDepla, t_tabDeplacement histoDepla){
 
-    int incrLigSok=ZERO, incrColSok=ZERO;
+    int incrLigSok = ZERO, incrColSok = ZERO;
     // incrLigSok et incrColSok changent en fonction de la direction choisie
     if(histoDepla[*nbDepla + ENLEVER] == SOKOBAN_HAUT) {
         incrLigSok = AJOUTER;
@@ -775,8 +782,8 @@ void annulation_deplacer(t_Plateau plateau, int *ligSok, int *colSok,
     } else if (plateau[*ligSok+incrLigSok][*colSok+incrColSok] == CAISSE) {
         annule_deplacement_caisse(plateau, &*ligSok, &*colSok, incrLigSok,
             incrColSok, &*nbDepla, histoDepla);
-    } else if (plateau[*ligSok+incrLigSok][*colSok+incrColSok]
-        == CAISSE_CIBLE) {
+    } else if (plateau[*ligSok+incrLigSok][*colSok+incrColSok] == 
+        CAISSE_CIBLE) {
         annule_deplacement_caisse_cible(plateau, &*ligSok, &*colSok, incrLigSok,
             incrColSok, &*nbDepla, histoDepla);
     } else if (plateau[*ligSok+incrLigSok][*colSok+incrColSok] == CIBLE) {
@@ -935,14 +942,13 @@ void annulation_deplacement_sokoban(int nvLig, int nvCol, int *ligSok,
 }
 
 void annulation_deplacement(t_tabDeplacement histoDepla,  int nbDepla){
-    
-    histoDepla[nbDepla]=AUCUN_DEPLACEMENT;
+    histoDepla[nbDepla] = AUCUN_DEPLACEMENT;
 }
 
 
 void initialiser_historique_deplacement(t_tabDeplacement histoDepla){
     for (int i = ZERO ; i < MILLE ; i++){
-        histoDepla[i]=AUCUN_DEPLACEMENT;
+        histoDepla[i] = AUCUN_DEPLACEMENT;
     }
 }
 
@@ -956,8 +962,8 @@ void recommencer(int *nbDepla, t_Plateau plateauDeJeu, char nomFichier[],
     if (choix == VALIDATION) {
         charger_partie(plateauDeJeu, nomFichier);
         *nbDepla=0;
-        for (int i=0 ; i<NB_LIGNES ; i++) {
-            for (int j=0 ; j<NB_COLONNES ; j++) {
+        for (int i = 0 ; i < NB_LIGNES ; i++) {
+            for (int j = 0 ; j < NB_COLONNES ; j++) {
                 if (plateauDeJeu[i][j] == SOKOBAN){
                     *ligneSokoban = i;
                     *colonneSokoban = j;
@@ -983,8 +989,8 @@ void abandon(t_Plateau plateauDeJeu){
 bool gagne(t_Plateau plateauDeJeu){
     bool victoire = true;
     // Regarde si il reste des caisses ou Sokoban sur une cible
-    for (int i=0 ; i<NB_LIGNES ; i++){
-        for (int j=0 ; j<NB_COLONNES ; j++){
+    for (int i = 0 ; i < NB_LIGNES ; i++){
+        for (int j = 0 ; j < NB_COLONNES ; j++){
             if (plateauDeJeu[i][j] == CAISSE
                 || plateauDeJeu[i][j] == SOKOBAN_CIBLE){
                 victoire = false;
@@ -1004,8 +1010,8 @@ void charger_partie(t_Plateau plateau, char fichier[]){
         printf("ERREUR SUR FICHIER");
         exit(EXIT_FAILURE);
     } else {
-        for (int ligne=0 ; ligne<TAILLE ; ligne++){
-            for (int colonne=0 ; colonne<TAILLE ; colonne++){
+        for (int ligne = 0 ; ligne < TAILLE ; ligne++){
+            for (int colonne = 0 ; colonne < TAILLE ; colonne++){
                 fread(&plateau[ligne][colonne], sizeof(char), 1, f);
             }
             fread(&finDeLigne, sizeof(char), 1, f);
@@ -1021,8 +1027,8 @@ void enregistrer_partie(t_Plateau plateau, char fichier[]){
     char finDeLigne='\n';
 
     f = fopen(fichier, "w");
-    for (int ligne=0 ; ligne<TAILLE ; ligne++){
-        for (int colonne=0 ; colonne<TAILLE ; colonne++){
+    for (int ligne = 0 ; ligne < TAILLE ; ligne++){
+        for (int colonne = 0 ; colonne < TAILLE ; colonne++){
             fwrite(&plateau[ligne][colonne], sizeof(char), 1, f);
         }
         fwrite(&finDeLigne, sizeof(char), 1, f);
