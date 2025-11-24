@@ -84,7 +84,8 @@ typedef char t_tabDeplacement[NB_DEPLACEMENTS_MAX];
  * @param zoom Niveau de zoom choisi
  * @param histoDepla Historique des déplacements
  */
-void jeu(char * toucheAppuyee, t_Plateau plateau, char fichier[], int ligSok, int colSok, int * nbDepla, int zoom, t_tabDeplacement histoDepla);
+void jeu(char * toucheAppuyee, t_Plateau plateau, char fichier[], int ligSok,
+    int colSok, int * nbDepla, int zoom, t_tabDeplacement histoDepla);
 
 /**
  * @brief Affiche le plateau selon le niveau de zoom
@@ -123,7 +124,8 @@ void affichier_entete(int nbDepla, char nomFich[]);
  * @param nbDepla Nombre de déplacements effectués
  * @param histoDepla Historique des déplacements
  */
-void deplacer(t_Plateau plateau, int * ligSok, int * colSok, char deplacement, int * nbDepla, t_tabDeplacement histoDepla);
+void deplacer(t_Plateau plateau, int * ligSok, int * colSok, char deplacement,
+    int * nbDepla, t_tabDeplacement histoDepla);
 
 /**
  * @brief Déplace Sokoban en modifiant ses coordonnées
@@ -133,7 +135,8 @@ void deplacer(t_Plateau plateau, int * ligSok, int * colSok, char deplacement, i
  * @param colSok Adresse de la colonne de Sokoban
  * @param nbDepla Adresse du compteur de déplacements
  */
-void deplacement_sokoban(int nvLig, int nvCol, int * ligSok, int * colSok, int * nbDepla);
+void deplacement_sokoban(int nvLig, int nvCol, int * ligSok,
+    int * colSok, int * nbDepla);
 
 /**
  * @brief Permet de recommencer la partie depuis le fichier original
@@ -144,7 +147,8 @@ void deplacement_sokoban(int nvLig, int nvCol, int * ligSok, int * colSok, int *
  * @param colonneSokoban Adresse de la colonne de Sokoban
  * @param histoDepla Historique des déplacements
  */
-void recommencer(int * nbDepla, t_Plateau plateauDeJeu, char nomFichier[], int * ligneSokoban, int * colonneSokoban, t_tabDeplacement histoDepla);
+void recommencer(int * nbDepla, t_Plateau plateauDeJeu, char nomFichier[],
+    int * ligneSokoban, int * colonneSokoban, t_tabDeplacement histoDepla);
 
 /**
  * @brief Procédure permettant d'abandonner la partie
@@ -163,7 +167,9 @@ void abandon(t_Plateau plateauDeJeu);
  * @param histoDepla Historique des déplacements
  * @param deplacement Caractère représentant le mouvement
  */
-void deplacement_rien(t_Plateau plateau, int * ligSok, int * colSok, int incrLigSok, int incrColSok, int * nbDepla, t_tabDeplacement histoDepla, char deplacement);
+void deplacement_rien(t_Plateau plateau, int * ligSok, int * colSok,
+    int incrLigSok, int incrColSok, int * nbDepla,
+    t_tabDeplacement histoDepla, char deplacement);
 
 /**
  * @brief Gère le déplacement d'une caisse devant Sokoban
@@ -178,7 +184,10 @@ void deplacement_rien(t_Plateau plateau, int * ligSok, int * colSok, int incrLig
  * @param histoDepla Historique des déplacements
  * @param deplacement Caractère représentant le mouvement
  */
-void deplacement_caisse(t_Plateau plateau, int * ligSok, int * colSok, int incrLigSok, int incrColSok, int doubleIncrLigSok, int doubleIncrColSok, int * nbDepla, t_tabDeplacement histoDepla, char deplacement);
+void deplacement_caisse(t_Plateau plateau, int * ligSok, int * colSok,
+    int incrLigSok, int incrColSok, int doubleIncrLigSok,
+    int doubleIncrColSok, int * nbDepla,
+    t_tabDeplacement histoDepla, char deplacement);
 
 /**
  * @brief Gère le déplacement d'une caisse vers une cible
@@ -193,7 +202,9 @@ void deplacement_caisse(t_Plateau plateau, int * ligSok, int * colSok, int incrL
  * @param histoDepla Historique des déplacements
  * @param deplacement Caractère représentant le mouvement
  */
-void deplacement_caisse_cible(t_Plateau plateau, int * ligSok, int * colSok, int incrLigSok, int incrColSok, int doubleIncrLigSok, int doubleIncrColSok, int * nbDepla, t_tabDeplacement histoDepla, char deplacement);
+void deplacement_caisse_cible(t_Plateau plateau, int * ligSok, int * colSok,
+    int incrLigSok, int incrColSok, int doubleIncrLigSok, int doubleIncrColSok,
+    int * nbDepla, t_tabDeplacement histoDepla, char deplacement);
 
 /**
  * @brief Déplace Sokoban sur une case cible
@@ -206,7 +217,9 @@ void deplacement_caisse_cible(t_Plateau plateau, int * ligSok, int * colSok, int
  * @param histoDepla Historique des déplacements
  * @param deplacement Caractère représentant le mouvement
  */
-void deplacement_cible(t_Plateau plateau, int * ligSok, int * colSok, int incrLigSok, int incrColSok, int * nbDepla, t_tabDeplacement histoDepla, char deplacement);
+void deplacement_cible(t_Plateau plateau, int * ligSok, int * colSok,
+    int incrLigSok, int incrColSok, int * nbDepla,
+    t_tabDeplacement histoDepla, char deplacement);
 
 /**
  * @brief Annule le dernier déplacement, déduit de l'historique
@@ -216,7 +229,8 @@ void deplacement_cible(t_Plateau plateau, int * ligSok, int * colSok, int incrLi
  * @param nbDepla Adresse du nombre de déplacements
  * @param histoDepla Historique des déplacements
  */
-void anuulation_deplacer(t_Plateau plateau, int * ligSok, int * colSok, int * nbDepla, t_tabDeplacement histoDepla);
+void anuulation_deplacer(t_Plateau plateau, int * ligSok, int * colSok,
+    int * nbDepla, t_tabDeplacement histoDepla);
 
 /**
  * @brief Annule le dernier déplacement effectué en fonction de l'historique
@@ -226,7 +240,8 @@ void anuulation_deplacer(t_Plateau plateau, int * ligSok, int * colSok, int * nb
  * @param nbDepla Adresse du compteur de déplacements
  * @param histoDepla Historique des déplacements
  */
-void annulation_deplacer(t_Plateau plateau, int * ligSok, int * colSok, int * nbDepla, t_tabDeplacement histoDepla);
+void annulation_deplacer(t_Plateau plateau, int * ligSok, int * colSok,
+    int * nbDepla, t_tabDeplacement histoDepla);
 
 /**
  * @brief Annule un déplacement simple sans caisse
@@ -238,7 +253,9 @@ void annulation_deplacer(t_Plateau plateau, int * ligSok, int * colSok, int * nb
  * @param nbDepla Adresse du compteur de déplacements
  * @param histoDepla Historique des déplacements
  */
-void annule_deplacement_rien(t_Plateau plateau, int * ligSok, int * colSok, int incrLigSok, int incrColSok, int * nbDepla, t_tabDeplacement histoDepla);
+void annule_deplacement_rien(t_Plateau plateau, int * ligSok, int * colSok,
+    int incrLigSok, int incrColSok, int * nbDepla,
+    t_tabDeplacement histoDepla);
 
 /**
  * @brief Annule un déplacement où une caisse avait été poussée
@@ -250,7 +267,9 @@ void annule_deplacement_rien(t_Plateau plateau, int * ligSok, int * colSok, int 
  * @param nbDepla Adresse du compteur de déplacements
  * @param histoDepla Historique des déplacements
  */
-void annule_deplacement_caisse(t_Plateau plateau, int * ligSok, int * colSok, int incrLigSok, int incrColSok, int * nbDepla, t_tabDeplacement histoDepla);
+void annule_deplacement_caisse(t_Plateau plateau, int * ligSok, int * colSok,
+    int incrLigSok, int incrColSok, int * nbDepla,
+    t_tabDeplacement histoDepla);
 
 /**
  * @brief Annule un déplacement où une caisse sur cible avait été poussée
@@ -262,7 +281,9 @@ void annule_deplacement_caisse(t_Plateau plateau, int * ligSok, int * colSok, in
  * @param nbDepla Adresse du compteur de déplacements
  * @param histoDepla Historique des déplacements
  */
-void annule_deplacement_caisse_cible(t_Plateau plateau, int * ligSok, int * colSok, int incrLigSok, int incrColSok, int * nbDepla, t_tabDeplacement histoDepla);
+void annule_deplacement_caisse_cible(t_Plateau plateau, int * ligSok,
+    int * colSok, int incrLigSok, int incrColSok, int * nbDepla,
+    t_tabDeplacement histoDepla);
 
 /**
  * @brief Annule un déplacement où Sokoban s'était déplacé sur une cible
@@ -274,7 +295,9 @@ void annule_deplacement_caisse_cible(t_Plateau plateau, int * ligSok, int * colS
  * @param nbDepla Adresse du compteur de déplacements
  * @param histoDepla Historique des déplacements
  */
-void annule_deplacement_cible(t_Plateau plateau, int * ligSok, int * colSok, int incrLigSok, int incrColSok, int * nbDepla, t_tabDeplacement histoDepla);
+void annule_deplacement_cible(t_Plateau plateau, int * ligSok, int * colSok,
+    int incrLigSok, int incrColSok, int * nbDepla,
+    t_tabDeplacement histoDepla);
 
 /**
  * @brief Modifie les coordonnées de Sokoban lors d'une annulation
@@ -284,7 +307,8 @@ void annule_deplacement_cible(t_Plateau plateau, int * ligSok, int * colSok, int
  * @param colSok Adresse de la colonne actuelle de Sokoban
  * @param nbDepla Adresse du compteur de déplacements
  */
-void annulation_deplacement_sokoban(int nvLig, int nvCol, int * ligSok, int * colSok, int * nbDepla);
+void annulation_deplacement_sokoban(int nvLig, int nvCol, int * ligSok,
+    int * colSok, int * nbDepla);
 
 /**
  * @brief Affiche une ligne du plateau en zoom 1
@@ -314,7 +338,8 @@ void initialiser_historique_deplacement(t_tabDeplacement histoDepla);
  * @param dernierDepla Caractère représentant le déplacement effectué
  * @param nbDepla Index auquel ajouter ce déplacement
  */
-void ajout_deplacement(t_tabDeplacement histoDepla, char dernierDepla, int nbDepla);
+void ajout_deplacement(t_tabDeplacement histoDepla, char dernierDepla,
+    int nbDepla);
 
 /**
  * @brief Modifie un déplacement pour indiquer qu'une caisse a été poussée
@@ -358,7 +383,7 @@ int kbhit();
 int main(){ 
     t_Plateau plateauDeJeu; // Plateau du jeu
     t_tabDeplacement historiqueDeplacement;
-    char nomFichier[TAILLE_FICHIER], touche = ATTENTE; // Nom du fichier + touche
+    char nomFichier[TAILLE_FICHIER], touche = ATTENTE; //Nomdu fichier + touche
     int nbDeplacements = ZERO, ligneSokoban, colonneSokoban, nvZoom = 1; 
     printf("Entrez le nom du fichier : ");
     scanf("%s", nomFichier);
@@ -368,7 +393,9 @@ int main(){
     // Définition des coordonnées où se trouve Sokoban
     for (int i = 0 ; i < NB_LIGNES ; i++) {
         for(int j = 0;j < NB_COLONNES;j++) {
-            if((plateauDeJeu[i][j] == SOKOBAN) || (plateauDeJeu[i][j] == SOKOBAN_CIBLE)) {
+            if((plateauDeJeu[i][j] == SOKOBAN) || (plateauDeJeu[i][j] ==
+                SOKOBAN_CIBLE)) {
+                
                 ligneSokoban = i;
                 colonneSokoban = j;
             }
@@ -390,7 +417,7 @@ int main(){
 
 void enregistrement_deplacements(t_tabDeplacement t, int nb){
     char choix, nomFichierDeplacements[TAILLE_FICHIER];
-    printf("Souhaitez-vous enregistrer les déplacements dans un fichier ? (O/N) ");
+    printf("Souhaitez-vous enregistrer les déplacements ? (O/N) ");
     scanf(" %c", &choix);
     if (choix == VALIDATION) {
         printf("Quel nom souhaitez-vous donner au fichier ? (19 caractères) ");
@@ -534,10 +561,10 @@ void deplacer(t_Plateau plateau, int *ligSok, int *colSok,
         incrColSok = AJOUTER;
         deplacementHistorique = SOKOBAN_DROITE;
     }
-    // doubleIncrLigSok et doubleIncrColSok représentent la ligne/colonne plus loin
+    // doubleIncrLigSok et doubleIncrColSok représentent la ligne/colonne + 1
     doubleIncrLigSok = incrLigSok * DOUBLE;
     doubleIncrColSok = incrColSok * DOUBLE;
-    // Le déplacement se fait en fonction du cas dans lequel le joueur se trouve
+    // Le déplacement se fait en fonction du cas où le joueur se trouve
     if(plateau[*ligSok+incrLigSok][*colSok+incrColSok] == RIEN){
         deplacement_rien(plateau, &*ligSok, &*colSok, incrLigSok,
             incrColSok, &*nbDepla, histoDepla, deplacementHistorique);
@@ -862,8 +889,9 @@ void annule_deplacement_caisse(t_Plateau plateau, int *ligSok, int *colSok,
     }
 }
 
-void annule_deplacement_caisse_cible(t_Plateau plateau, int *ligSok, int *colSok,
-    int incrLigSok, int incrColSok, int *nbDepla, t_tabDeplacement histoDepla){
+void annule_deplacement_caisse_cible(t_Plateau plateau, int *ligSok,
+    int *colSok, int incrLigSok, int incrColSok, int *nbDepla,
+    t_tabDeplacement histoDepla){
 
     int invIncrColSok = incrColSok*INVERSE, invIncrLigSok = incrLigSok*INVERSE;
     
