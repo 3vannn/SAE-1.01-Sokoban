@@ -84,7 +84,7 @@ typedef char t_tabDeplacement[NB_DEPLACEMENTS_MAX];
  * @param zoom Niveau de zoom choisi
  * @param histoDepla Historique des déplacements
  */
-void jeu(char * toucheAppuyee, t_Plateau plateau, char fichier[], int ligSok, int colSok, int nbDepla, int zoom, t_tabDeplacement histoDepla);
+void jeu(char * toucheAppuyee, t_Plateau plateau, char fichier[], int ligSok, int colSok, int * nbDepla, int zoom, t_tabDeplacement histoDepla);
 
 /**
  * @brief Affiche le plateau selon le niveau de zoom
@@ -337,11 +337,12 @@ void annulation_deplacement(t_tabDeplacement histoDepla, int nbDepla);
  */
 void enregistrer_deplacements(t_tabDeplacement t, int nb, char fic[]);
 
+void enregistrementDeplacements(t_tabDeplacement t, int nb);
 
 /**
  * @brief Fonction qui renvoie si le joueur a gagné
  * @param plateauDeJeu Plateau du jeu de type t_Plateau
- * @return true si le joueur a gagné sinon False
+ * @return true si le joueur a gagné sinon false
  */
 bool gagne(t_Plateau plateauDeJeu);
 
@@ -368,19 +369,31 @@ int main(){
     }
     initialiser_historique_deplacement(historiqueDeplacement);
     jeu(&touche, plateauDeJeu, nomFichier, ligneSokoban,
-        colonneSokoban, nbDeplacements, nvZoom, historiqueDeplacement);
-    // Dit si le joueur a gagné ou abandonné en fonction de la dernirèe touche
+        colonneSokoban, &nbDeplacements, nvZoom, historiqueDeplacement);
+    // Dit si le joueur a gagné ou abandonné en fonction de la dernière touche
     if(touche == ARRETER) {
         abandon(plateauDeJeu);
         printf("\nLa partie a été abandonnée\n");
     } else {
         printf("\nVous avez gagné !\n");
     }
+    enregistrementDeplacements(historiqueDeplacement, nbDeplacements);
     return EXIT_SUCCESS;
 }
 
+void enregistrementDeplacements(t_tabDeplacement t, int nb){
+    char choix, nomFichierDeplacements[TAILLE_FICHIER];
+    printf("Souhaitez-vous enregistrer les déplacements dans un fichier ? (O/N) ");
+    scanf("%c", &choix);
+    if (choix == VALIDATION) {
+        printf("Quel nom souhaitez-vous donner au fichier ? (19 caractères) ");
+        scanf("%s", nomFichierDeplacements);
+        enregistrer_deplacements(t, nb, nomFichierDeplacements);
+    }
+}
+
 void jeu(char *toucheAppuyee, t_Plateau plateau, char fichier[],
-    int ligSok, int colSok, int nbDepla, int zoom,
+    int ligSok, int colSok, int *nbDepla, int zoom,
     t_tabDeplacement histoDepla){
     
     // Boucle du jeu qui se termine si le joueur gagne ou abandonne
@@ -389,10 +402,10 @@ void jeu(char *toucheAppuyee, t_Plateau plateau, char fichier[],
         while (kbhit() == 0) {}
         *toucheAppuyee = getchar();
         if (*toucheAppuyee == RECOMMENCER) {
-            recommencer(&nbDepla, plateau, fichier, &ligSok, &colSok,
+            recommencer(&*nbDepla, plateau, fichier, &ligSok, &colSok,
                 histoDepla);
         } else if (*toucheAppuyee == RETOUR) {
-            annulation_deplacer(plateau, &ligSok, &colSok, &nbDepla,
+            annulation_deplacer(plateau, &ligSok, &colSok, &*nbDepla,
                 histoDepla);
         } else if (*toucheAppuyee == ZOOM) {
             if(zoom < 3) {
@@ -403,11 +416,11 @@ void jeu(char *toucheAppuyee, t_Plateau plateau, char fichier[],
                 zoom=zoom-1;
             }
         }
-        deplacer(plateau, &ligSok, &colSok, *toucheAppuyee, &nbDepla,
+        deplacer(plateau, &ligSok, &colSok, *toucheAppuyee, &*nbDepla,
             histoDepla);
 
         system("clear");
-        affichier_entete(nbDepla, fichier);
+        affichier_entete(*nbDepla, fichier);
         afficher_plateau(plateau, zoom);
         for(int k=0; k<70 ; k++){
             printf("%c", histoDepla[k]);
