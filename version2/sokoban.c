@@ -222,17 +222,6 @@ void deplacement_cible(t_Plateau plateau, int * ligSok, int * colSok,
     t_tabDeplacement histoDepla, char deplacement);
 
 /**
- * @brief Annule le dernier déplacement, déduit de l'historique
- * @param plateau Plateau du jeu
- * @param ligSok Adresse de la ligne de Sokoban
- * @param colSok Adresse de la colonne de Sokoban
- * @param nbDepla Adresse du nombre de déplacements
- * @param histoDepla Historique des déplacements
- */
-void anuulation_deplacer(t_Plateau plateau, int * ligSok, int * colSok,
-    int * nbDepla, t_tabDeplacement histoDepla);
-
-/**
  * @brief Annule le dernier déplacement effectué en fonction de l'historique
  * @param plateau Plateau du jeu
  * @param ligSok Adresse de la ligne actuelle de Sokoban
