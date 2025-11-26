@@ -2,8 +2,8 @@
 * @file sokoban.c
 * @brief Jeu du Sokoban
 * @author Evan BENOIT
-* @version 1.0
-* @date 8/11/2025
+* @version 2.0
+* @date 30/11/2025
 *
 * Le programme reprend le jeu du Sokoban où un petit bonhomme (identifié
 * ici par un '@' doit pousser des caisses sur des cibles
