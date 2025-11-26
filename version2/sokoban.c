@@ -456,9 +456,6 @@ void jeu(char *toucheAppuyee, t_Plateau plateau, char fichier[],
         system("clear");
         affichier_entete(*nbDepla, fichier);
         afficher_plateau(plateau, zoom);
-        for(int k = 0; k < 70 ; k++){
-            printf("%c", histoDepla[k]);
-        }
     }
 }
 
